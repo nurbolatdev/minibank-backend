@@ -1,4 +1,4 @@
-package user.model;
+package com.example.minibankbackend.user.model;
 
 
 import jakarta.persistence.*;

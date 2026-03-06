@@ -1,4 +1,4 @@
-package common.response;
+package com.example.minibankbackend.common.response;
 
 
 import java.util.List;

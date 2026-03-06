@@ -1,4 +1,4 @@
-package transaction.model;
+package com.example.minibankbackend.transaction.model;
 
 
 public enum TxType {

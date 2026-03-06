@@ -1,4 +1,4 @@
-package common.exception;
+package com.example.minibankbackend.common.exception;
 
 public class BusinessException extends RuntimeException {
     private final String code;
