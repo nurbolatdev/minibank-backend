@@ -1,6 +1,5 @@
 package com.example.minibankbackend.common.security;
 
-
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Value;
@@ -19,8 +18,8 @@ public class JwtService {
     private final int expirationMinutes;
 
     public JwtService(
-            @Value("${app.jwt.secret}") String secret,
-            @Value("${app.jwt.expirationMinutes}") int expirationMinutes
+            @Value("${app.security.jwt.secret}") String secret,
+            @Value("${app.security.jwt.expiration-minutes}") int expirationMinutes
     ) {
         this.key = Keys.hmacShaKeyFor(secret.getBytes(StandardCharsets.UTF_8));
         this.expirationMinutes = expirationMinutes;
@@ -41,6 +40,9 @@ public class JwtService {
     }
 
     public Jws<Claims> parse(String token) {
-        return Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token);
+        return Jwts.parserBuilder()
+                .setSigningKey(key)
+                .build()
+                .parseClaimsJws(token);
     }
 }
