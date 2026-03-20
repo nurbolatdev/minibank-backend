@@ -28,16 +28,22 @@ public class AuthService {
         if (userRepository.findByEmail(req.email()).isPresent()) {
             throw new BusinessException("EMAIL_EXISTS", "Email already registered");
         }
+        String email = req.email().trim().toLowerCase();
+        String defaultName = email.contains("@") ? email.substring(0, email.indexOf("@")) : "User";
+
         User user = User.builder()
-                .email(req.email())
+                .email(email)
                 .passwordHash(encoder.encode(req.password()))
                 .role(Role.USER)
+                .name(defaultName)
+                .avatarUrl(null)
                 .build();
         userRepository.save(user);
     }
 
     public AuthResponse login(AuthRequest req) {
-        User user = userRepository.findByEmail(req.email())
+        String email = req.email().trim().toLowerCase();
+        User user = userRepository.findByEmail(email)
                 .orElseThrow(() -> new BusinessException("BAD_CREDENTIALS", "Invalid credentials"));
 
         if (!encoder.matches(req.password(), user.getPasswordHash())) {
